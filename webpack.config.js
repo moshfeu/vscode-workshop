@@ -2,13 +2,15 @@
 
 'use strict';
 
+const CopyPlugin = require('copy-webpack-plugin');
+const webpack = require('webpack');
 const path = require('path');
 
 //@ts-check
-/** @typedef {import('webpack').Configuration} WebpackConfig **/
+/** @typedef {(env: unknown, argv: {mode: string}) => import('webpack').Configuration} WebpackConfig **/
 
 /** @type WebpackConfig */
-const extensionConfig = {
+const extensionConfig = (env, argv) => ({
   target: 'node', // VS Code extensions run in a Node.js-context 📖 -> https://webpack.js.org/configuration/node/
 	mode: 'none', // this leaves the source code as close as possible to the original (when packaging we set this to 'production')
 
@@ -27,6 +29,16 @@ const extensionConfig = {
     // support reading TypeScript and JavaScript files, 📖 -> https://github.com/TypeStrong/ts-loader
     extensions: ['.ts', '.js']
   },
+  plugins: [
+    new CopyPlugin({
+      patterns: [
+        { from: "src/assets/", to: "assets" },
+      ],
+    }),
+    new webpack.DefinePlugin({
+      'process.env.NODE_ENV': JSON.stringify(argv.mode === 'production' ? 'production' : 'development')
+    })
+  ],
   module: {
     rules: [
       {
@@ -44,5 +56,6 @@ const extensionConfig = {
   infrastructureLogging: {
     level: "log", // enables logging required for problem matchers
   },
-};
+});
+
 module.exports = [ extensionConfig ];
