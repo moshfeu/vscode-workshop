@@ -56,6 +56,7 @@
   },
   "dependencies": {
     "copy-webpack-plugin": "^12.0.2",
-    "play-sound": "^1.1.6"
+    "play-sound": "^1.1.6",
+    "say": "^0.16.0"
   }
 }
