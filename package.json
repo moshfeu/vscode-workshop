@@ -37,7 +37,8 @@
     "watch-tests": "tsc -p . -w --outDir out",
     "pretest": "yarn run compile-tests && yarn run compile && yarn run lint",
     "lint": "eslint src --ext ts",
-    "test": "vscode-test"
+    "test": "vscode-test",
+    "open-moving-tabs": "for i in {0..21}; do code ./excercises/moving-tabs/$i.md; done "
   },
   "devDependencies": {
     "@types/mocha": "^10.0.6",
