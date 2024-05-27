@@ -2,6 +2,10 @@
   "name": "vscode-workshop",
   "displayName": "vscode workshop",
   "description": "",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/moshfeu/vscode-workshop"
+  },
   "version": "0.0.1",
   "engines": {
     "vscode": "^1.88.0"
@@ -29,10 +33,11 @@
     ]
   },
   "scripts": {
-    "vscode:prepublish": "yarn run package",
+    "vscode:prepublish": "yarn run compile:production",
     "compile": "webpack",
     "watch": "webpack --watch",
-    "package": "webpack --mode production --devtool hidden-source-map",
+    "compile:production": "webpack --mode production --devtool hidden-source-map",
+    "package": "npx vsce package --baseContentUrl https://github.com/moshfeu/vscode-workshop",
     "compile-tests": "tsc -p . --outDir out",
     "watch-tests": "tsc -p . -w --outDir out",
     "pretest": "yarn run compile-tests && yarn run compile && yarn run lint",
